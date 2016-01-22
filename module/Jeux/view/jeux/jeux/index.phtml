@@ -1,0 +1,32 @@
+ <?php
+ // module/Jeux/view/jeux/jeux/index.phtml:
+
+ $title = 'Mes jeux';
+ $this->headTitle($title);
+ ?>
+ <h1><?php echo $this->escapeHtml($title); ?></h1>
+ <p>
+     <a href="<?php echo $this->url('jeux', array('action'=>'add'));?>">Ajouter un jeu</a>
+ </p>
+
+ <table class="table">
+ <tr>
+     <th>Titre</th>
+     <th>Plateforme</th>
+     <th>Type</th>
+     <th>&nbsp;</th>
+ </tr>
+ <?php foreach ($jeuxs as $jeux) : ?>
+ <tr>
+     <td><?php echo $this->escapeHtml($jeux->titre);?></td>
+     <td><?php echo $this->escapeHtml($jeux->type);?></td>
+     <td><?php echo $this->escapeHtml($jeux->plateforme);?></td>
+     <td>
+         <a href="<?php echo $this->url('jeux',
+             array('action'=>'edit', 'id' => $jeux->id));?>">Edit</a>
+         <a href="<?php echo $this->url('jeux',
+             array('action'=>'delete', 'id' => $jeux->id));?>">Delete</a>
+     </td>
+ </tr>
+ <?php endforeach; ?>
+ </table>
