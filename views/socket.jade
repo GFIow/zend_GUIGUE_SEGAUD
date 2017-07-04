@@ -1,0 +1,33 @@
+//
+   Created by A643564 on 04/07/2017.
+
+doctype html
+head
+    meta(charset='utf-8')
+    title Socket.io
+body
+    h1 Communication avec socket.io
+
+    p
+        input(type='text', id='message')
+        input(type='button', value='Envoyer', id='poke')
+        br
+    - var historique = [];
+        each msg, i in historique
+            p= historique[i].pseudo + ' : ' + historique[i].message
+
+    script(src="http://code.jquery.com/jquery-1.10.1.min.js")
+    script(src="/socket.io/socket.io.js")
+    script.
+        var socket = io.connect('http://localhost:3000');
+        var pseudo = prompt('Pseudo ?');
+        socket.emit('new_user', pseudo);
+
+        $('#poke').click(function () {
+            socket.emit('message', $('#message').val());
+            $('#message').val("");
+        })
+
+        socket.on('discussion', function (msg) {
+            historique.push(msg);
+        })
